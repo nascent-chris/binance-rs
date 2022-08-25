@@ -1,3 +1,4 @@
+use boolinator::Boolinator;
 use error_chain::bail;
 use hex::encode as hex_encode;
 use hmac::{Hmac, Mac};
@@ -144,21 +145,23 @@ impl Client {
     }
 
     fn build_headers(&self, content_type: bool) -> Result<HeaderMap> {
-        let mut custom_headers = HeaderMap::new();
+        let headers = IntoIterator::into_iter([
+            Some((USER_AGENT, HeaderValue::from_static("binance-rs"))),
+            content_type.as_option().map(|_| {
+                (
+                    CONTENT_TYPE,
+                    HeaderValue::from_static("application/x-www-form-urlencoded"),
+                )
+            }),
+            Some((
+                HeaderName::from_static("x-mbx-apikey"),
+                HeaderValue::from_str(self.api_key.as_str())?,
+            )),
+        ])
+        .flatten()
+        .collect();
 
-        custom_headers.insert(USER_AGENT, HeaderValue::from_static("binance-rs"));
-        if content_type {
-            custom_headers.insert(
-                CONTENT_TYPE,
-                HeaderValue::from_static("application/x-www-form-urlencoded"),
-            );
-        }
-        custom_headers.insert(
-            HeaderName::from_static("x-mbx-apikey"),
-            HeaderValue::from_str(self.api_key.as_str())?,
-        );
-
-        Ok(custom_headers)
+        Ok(headers)
     }
 
     fn handler<T: DeserializeOwned>(&self, response: Response) -> Result<T> {
