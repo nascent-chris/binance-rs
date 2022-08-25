@@ -534,7 +534,7 @@ impl FuturesAccount {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .get_signed(API::Futures(Futures::PositionRisk), Some(request))
+            .get_signed(API::Futures(Futures::PositionRisk), Some(&request))
     }
 
     pub fn account_information(&self) -> Result<AccountInformation> {
@@ -542,7 +542,7 @@ impl FuturesAccount {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .get_signed(API::Futures(Futures::Account), Some(request))
+            .get_signed(API::Futures(Futures::Account), Some(&request))
     }
 
     pub fn account_balance(&self) -> Result<Vec<AccountBalance>> {
@@ -550,7 +550,7 @@ impl FuturesAccount {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .get_signed(API::Futures(Futures::Balance), Some(request))
+            .get_signed(API::Futures(Futures::Balance), Some(&request))
     }
 
     pub fn change_initial_leverage<S>(
@@ -599,7 +599,7 @@ impl FuturesAccount {
         parameters.insert("symbol".into(), symbol.into());
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .get_signed(API::Futures(Futures::OpenOrders), Some(request))
+            .get_signed(API::Futures(Futures::OpenOrders), Some(&request))
     }
 
     pub fn get_income(

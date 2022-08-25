@@ -17,7 +17,7 @@ impl Savings {
     pub fn get_all_coins(&self) -> Result<Vec<CoinInfo>> {
         let request = build_signed_request(BTreeMap::new(), self.recv_window)?;
         self.client
-            .get_signed(API::Savings(Sapi::AllCoins), Some(request))
+            .get_signed(API::Savings(Sapi::AllCoins), Some(&request))
     }
 
     /// Fetch details of assets supported on Binance.
@@ -28,7 +28,7 @@ impl Savings {
         }
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .get_signed(API::Savings(Sapi::AssetDetail), Some(request))
+            .get_signed(API::Savings(Sapi::AssetDetail), Some(&request))
     }
 
     /// Fetch deposit address with network.
@@ -46,7 +46,7 @@ impl Savings {
         }
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .get_signed(API::Savings(Sapi::DepositAddress), Some(request))
+            .get_signed(API::Savings(Sapi::DepositAddress), Some(&request))
     }
 
     pub fn transfer_funds<S>(

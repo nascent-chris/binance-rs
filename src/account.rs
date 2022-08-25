@@ -90,7 +90,7 @@ impl Account {
     pub fn get_account(&self) -> Result<AccountInformation> {
         let request = build_signed_request(BTreeMap::new(), self.recv_window)?;
         self.client
-            .get_signed(API::Spot(Spot::Account), Some(request))
+            .get_signed(API::Spot(Spot::Account), Some(&request))
     }
 
     // Balance for a single Asset
@@ -122,7 +122,7 @@ impl Account {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .get_signed(API::Spot(Spot::OpenOrders), Some(request))
+            .get_signed(API::Spot(Spot::OpenOrders), Some(&request))
     }
 
     // All current open orders
@@ -131,7 +131,7 @@ impl Account {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .get_signed(API::Spot(Spot::OpenOrders), Some(request))
+            .get_signed(API::Spot(Spot::OpenOrders), Some(&request))
     }
 
     // Cancel all open orders for a single symbol
@@ -157,7 +157,7 @@ impl Account {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .get_signed(API::Spot(Spot::Order), Some(request))
+            .get_signed(API::Spot(Spot::Order), Some(&request))
     }
 
     /// Place a test status order
@@ -173,7 +173,7 @@ impl Account {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .get_signed::<Empty>(API::Spot(Spot::OrderTest), Some(request))
+            .get_signed::<Empty>(API::Spot(Spot::OrderTest), Some(&request))
             .map(|_| ())
     }
 
@@ -717,7 +717,7 @@ impl Account {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .get_signed(API::Spot(Spot::MyTrades), Some(request))
+            .get_signed(API::Spot(Spot::MyTrades), Some(&request))
     }
 
     fn build_order(&self, order: OrderRequest) -> BTreeMap<String, String> {

@@ -31,7 +31,7 @@ impl Client {
     }
 
     pub fn get_signed<T: DeserializeOwned>(
-        &self, endpoint: API, request: Option<String>,
+        &self, endpoint: API, request: Option<&str>,
     ) -> Result<T> {
         let url = self.sign_request(endpoint, request.as_deref());
 

@@ -106,7 +106,7 @@ impl FuturesMarket {
         let request = build_signed_request(parameters, self.recv_window)?;
 
         self.client
-            .get_signed(API::Futures(Futures::HistoricalTrades), Some(request))
+            .get_signed(API::Futures(Futures::HistoricalTrades), Some(&request))
     }
 
     pub fn get_agg_trades<S1, S2, S3, S4, S5>(
