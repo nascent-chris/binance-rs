@@ -93,9 +93,9 @@ pub enum Futures {
     Income,
 }
 
-impl From<API> for String {
-    fn from(item: API) -> Self {
-        String::from(match item {
+impl API {
+    pub fn path_str(&self) -> &'static str {
+        match self {
             API::Spot(route) => match route {
                 Spot::Ping => "/api/v3/ping",
                 Spot::Time => "/api/v3/time",
@@ -166,7 +166,13 @@ impl From<API> for String {
                 Futures::UserDataStream => "/fapi/v1/listenKey",
                 Futures::Income => "/fapi/v1/income",
             },
-        })
+        }
+    }
+}
+
+impl From<API> for String {
+    fn from(item: API) -> Self {
+        String::from(item.path_str())
     }
 }
 
