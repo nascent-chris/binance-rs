@@ -70,7 +70,7 @@ impl Client {
         self.handler(response)
     }
 
-    pub fn get<T: DeserializeOwned>(&self, endpoint: API, request: Option<String>) -> Result<T> {
+    pub fn get<T: DeserializeOwned>(&self, endpoint: API, request: Option<&str>) -> Result<T> {
         let url = if let Some(request) = request {
             format!("{}{}?{}", self.host, endpoint.path_str(), request)
         } else {

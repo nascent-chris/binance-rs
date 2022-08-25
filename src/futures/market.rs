@@ -55,7 +55,8 @@ impl FuturesMarket {
         parameters.insert("symbol".into(), symbol.into());
         let request = build_request(parameters);
 
-        self.client.get(API::Futures(Futures::Depth), Some(request))
+        self.client
+            .get(API::Futures(Futures::Depth), Some(&request))
     }
 
     // Order book at a custom depth. Currently supported values
@@ -68,7 +69,8 @@ impl FuturesMarket {
         parameters.insert("symbol".into(), symbol.into());
         parameters.insert("limit".into(), depth.to_string());
         let request = build_request(parameters);
-        self.client.get(API::Futures(Futures::Depth), Some(request))
+        self.client
+            .get(API::Futures(Futures::Depth), Some(&request))
     }
 
     pub fn get_trades<S>(&self, symbol: S) -> Result<Trades>
@@ -79,7 +81,7 @@ impl FuturesMarket {
         parameters.insert("symbol".into(), symbol.into());
         let request = build_request(parameters);
         self.client
-            .get(API::Futures(Futures::Trades), Some(request))
+            .get(API::Futures(Futures::Trades), Some(&request))
     }
 
     // TODO This may be incomplete, as it hasn't been tested
@@ -140,7 +142,7 @@ impl FuturesMarket {
         let request = build_request(parameters);
 
         self.client
-            .get(API::Futures(Futures::AggTrades), Some(request))
+            .get(API::Futures(Futures::AggTrades), Some(&request))
     }
 
     // Returns up to 'limit' klines for given symbol and interval ("1m", "5m", ...)
@@ -175,7 +177,7 @@ impl FuturesMarket {
 
         let data: Vec<Vec<Value>> = self
             .client
-            .get(API::Futures(Futures::Klines), Some(request))?;
+            .get(API::Futures(Futures::Klines), Some(&request))?;
 
         let klines = KlineSummaries::AllKlineSummaries(
             data.iter()
@@ -197,7 +199,7 @@ impl FuturesMarket {
         let request = build_request(parameters);
 
         self.client
-            .get(API::Futures(Futures::Ticker24hr), Some(request))
+            .get(API::Futures(Futures::Ticker24hr), Some(&request))
     }
 
     // 24hr ticker price change statistics for all symbols
@@ -216,7 +218,7 @@ impl FuturesMarket {
         let request = build_request(parameters);
 
         self.client
-            .get(API::Futures(Futures::TickerPrice), Some(request))
+            .get(API::Futures(Futures::TickerPrice), Some(&request))
     }
 
     // Latest price for all symbols.
@@ -239,7 +241,7 @@ impl FuturesMarket {
         parameters.insert("symbol".into(), symbol.into());
         let request = build_request(parameters);
         self.client
-            .get(API::Futures(Futures::BookTicker), Some(request))
+            .get(API::Futures(Futures::BookTicker), Some(&request))
     }
 
     pub fn get_mark_prices(&self) -> Result<MarkPrices> {
@@ -258,7 +260,7 @@ impl FuturesMarket {
         parameters.insert("symbol".into(), symbol.into());
         let request = build_request(parameters);
         self.client
-            .get(API::Futures(Futures::OpenInterest), Some(request))
+            .get(API::Futures(Futures::OpenInterest), Some(&request))
     }
 
     pub fn open_interest_statistics<S1, S2, S3, S4, S5>(
@@ -287,6 +289,6 @@ impl FuturesMarket {
 
         let request = build_request(parameters);
         self.client
-            .get(API::Futures(Futures::OpenInterestHist), Some(request))
+            .get(API::Futures(Futures::OpenInterestHist), Some(&request))
     }
 }
