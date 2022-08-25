@@ -195,7 +195,7 @@ impl Account {
         };
         let order = self.build_order(buy);
         let request = build_signed_request(order, self.recv_window)?;
-        self.client.post_signed(API::Spot(Spot::Order), request)
+        self.client.post_signed(API::Spot(Spot::Order), &request)
     }
 
     /// Place a test limit order - BUY
@@ -219,7 +219,7 @@ impl Account {
         let order = self.build_order(buy);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed::<Empty>(API::Spot(Spot::OrderTest), request)
+            .post_signed::<Empty>(API::Spot(Spot::OrderTest), &request)
             .map(|_| ())
     }
 
@@ -241,7 +241,7 @@ impl Account {
         };
         let order = self.build_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
-        self.client.post_signed(API::Spot(Spot::Order), request)
+        self.client.post_signed(API::Spot(Spot::Order), &request)
     }
 
     /// Place a test LIMIT order - SELL
@@ -265,7 +265,7 @@ impl Account {
         let order = self.build_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed::<Empty>(API::Spot(Spot::OrderTest), request)
+            .post_signed::<Empty>(API::Spot(Spot::OrderTest), &request)
             .map(|_| ())
     }
 
@@ -287,7 +287,7 @@ impl Account {
         };
         let order = self.build_order(buy);
         let request = build_signed_request(order, self.recv_window)?;
-        self.client.post_signed(API::Spot(Spot::Order), request)
+        self.client.post_signed(API::Spot(Spot::Order), &request)
     }
 
     /// Place a test MARKET order - BUY
@@ -311,7 +311,7 @@ impl Account {
         let order = self.build_order(buy);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed::<Empty>(API::Spot(Spot::OrderTest), request)
+            .post_signed::<Empty>(API::Spot(Spot::OrderTest), &request)
             .map(|_| ())
     }
 
@@ -334,7 +334,7 @@ impl Account {
         };
         let order = self.build_quote_quantity_order(buy);
         let request = build_signed_request(order, self.recv_window)?;
-        self.client.post_signed(API::Spot(Spot::Order), request)
+        self.client.post_signed(API::Spot(Spot::Order), &request)
     }
 
     /// Place a test MARKET order with quote quantity - BUY
@@ -359,7 +359,7 @@ impl Account {
         let order = self.build_quote_quantity_order(buy);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed::<Empty>(API::Spot(Spot::OrderTest), request)
+            .post_signed::<Empty>(API::Spot(Spot::OrderTest), &request)
             .map(|_| ())
     }
 
@@ -381,7 +381,7 @@ impl Account {
         };
         let order = self.build_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
-        self.client.post_signed(API::Spot(Spot::Order), request)
+        self.client.post_signed(API::Spot(Spot::Order), &request)
     }
 
     /// Place a test MARKET order - SELL
@@ -405,7 +405,7 @@ impl Account {
         let order = self.build_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed::<Empty>(API::Spot(Spot::OrderTest), request)
+            .post_signed::<Empty>(API::Spot(Spot::OrderTest), &request)
             .map(|_| ())
     }
 
@@ -428,7 +428,7 @@ impl Account {
         };
         let order = self.build_quote_quantity_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
-        self.client.post_signed(API::Spot(Spot::Order), request)
+        self.client.post_signed(API::Spot(Spot::Order), &request)
     }
 
     /// Place a test MARKET order with quote quantity - SELL
@@ -453,7 +453,7 @@ impl Account {
         let order = self.build_quote_quantity_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed::<Empty>(API::Spot(Spot::OrderTest), request)
+            .post_signed::<Empty>(API::Spot(Spot::OrderTest), &request)
             .map(|_| ())
     }
 
@@ -490,7 +490,7 @@ impl Account {
         };
         let order = self.build_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
-        self.client.post_signed(API::Spot(Spot::Order), request)
+        self.client.post_signed(API::Spot(Spot::Order), &request)
     }
 
     /// Create a stop limit buy test order for the given symbol, price and stop price.
@@ -529,7 +529,7 @@ impl Account {
         let order = self.build_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed::<Empty>(API::Spot(Spot::OrderTest), request)
+            .post_signed::<Empty>(API::Spot(Spot::OrderTest), &request)
             .map(|_| ())
     }
 
@@ -566,7 +566,7 @@ impl Account {
         };
         let order = self.build_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
-        self.client.post_signed(API::Spot(Spot::Order), request)
+        self.client.post_signed(API::Spot(Spot::Order), &request)
     }
 
     /// Create a stop limit sell order for the given symbol, price and stop price.
@@ -605,7 +605,7 @@ impl Account {
         let order = self.build_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed::<Empty>(API::Spot(Spot::OrderTest), request)
+            .post_signed::<Empty>(API::Spot(Spot::OrderTest), &request)
             .map(|_| ())
     }
 
@@ -631,7 +631,7 @@ impl Account {
         };
         let order = self.build_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
-        self.client.post_signed(API::Spot(Spot::Order), request)
+        self.client.post_signed(API::Spot(Spot::Order), &request)
     }
 
     /// Place a test custom order
@@ -659,7 +659,7 @@ impl Account {
         let order = self.build_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed::<Empty>(API::Spot(Spot::OrderTest), request)
+            .post_signed::<Empty>(API::Spot(Spot::OrderTest), &request)
             .map(|_| ())
     }
 

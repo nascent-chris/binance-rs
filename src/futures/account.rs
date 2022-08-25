@@ -228,7 +228,7 @@ impl FuturesAccount {
         let order = self.build_order(buy);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed(API::Futures(Futures::Order), request)
+            .post_signed(API::Futures(Futures::Order), &request)
     }
 
     pub fn limit_sell(
@@ -254,7 +254,7 @@ impl FuturesAccount {
         let order = self.build_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed(API::Futures(Futures::Order), request)
+            .post_signed(API::Futures(Futures::Order), &request)
     }
 
     // Place a MARKET order - BUY
@@ -282,7 +282,7 @@ impl FuturesAccount {
         let order = self.build_order(buy);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed(API::Futures(Futures::Order), request)
+            .post_signed(API::Futures(Futures::Order), &request)
     }
 
     // Place a MARKET order - SELL
@@ -310,7 +310,7 @@ impl FuturesAccount {
         let order = self.build_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed(API::Futures(Futures::Order), request)
+            .post_signed(API::Futures(Futures::Order), &request)
     }
 
     pub fn cancel_order<S>(&self, symbol: S, order_id: u64) -> Result<CanceledOrder>
@@ -366,7 +366,7 @@ impl FuturesAccount {
         let order = self.build_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed(API::Futures(Futures::Order), request)
+            .post_signed(API::Futures(Futures::Order), &request)
     }
 
     // Place a STOP_MARKET close - SELL
@@ -394,7 +394,7 @@ impl FuturesAccount {
         let order = self.build_order(sell);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed(API::Futures(Futures::Order), request)
+            .post_signed(API::Futures(Futures::Order), &request)
     }
 
     // Custom order for for professional traders
@@ -418,7 +418,7 @@ impl FuturesAccount {
         let order = self.build_order(order);
         let request = build_signed_request(order, self.recv_window)?;
         self.client
-            .post_signed(API::Futures(Futures::Order), request)
+            .post_signed(API::Futures(Futures::Order), &request)
     }
 
     pub fn get_all_orders<S, F, N>(
@@ -565,7 +565,7 @@ impl FuturesAccount {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .post_signed(API::Futures(Futures::ChangeInitialLeverage), request)
+            .post_signed(API::Futures(Futures::ChangeInitialLeverage), &request)
     }
 
     pub fn change_position_mode(&self, dual_side_position: bool) -> Result<()> {
@@ -575,7 +575,7 @@ impl FuturesAccount {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .post_signed::<Empty>(API::Futures(Futures::PositionSide), request)
+            .post_signed::<Empty>(API::Futures(Futures::PositionSide), &request)
             .map(|_| ())
     }
 
