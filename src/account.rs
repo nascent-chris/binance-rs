@@ -143,7 +143,7 @@ impl Account {
         parameters.insert("symbol".into(), symbol.into());
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .delete_signed(API::Spot(Spot::OpenOrders), Some(request))
+            .delete_signed(API::Spot(Spot::OpenOrders), Some(&request))
     }
 
     // Check an order's status
@@ -674,7 +674,7 @@ impl Account {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .delete_signed(API::Spot(Spot::Order), Some(request))
+            .delete_signed(API::Spot(Spot::Order), Some(&request))
     }
 
     pub fn cancel_order_with_client_id<S>(
@@ -689,7 +689,7 @@ impl Account {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .delete_signed(API::Spot(Spot::Order), Some(request))
+            .delete_signed(API::Spot(Spot::Order), Some(&request))
     }
     /// Place a test cancel order
     ///
@@ -703,7 +703,7 @@ impl Account {
         parameters.insert("orderId".into(), order_id.to_string());
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .delete_signed::<Empty>(API::Spot(Spot::OrderTest), Some(request))
+            .delete_signed::<Empty>(API::Spot(Spot::OrderTest), Some(&&request))
             .map(|_| ())
     }
 

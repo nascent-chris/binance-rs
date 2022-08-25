@@ -323,7 +323,7 @@ impl FuturesAccount {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .delete_signed(API::Futures(Futures::Order), Some(request))
+            .delete_signed(API::Futures(Futures::Order), Some(&request))
     }
 
     pub fn cancel_order_with_client_id<S>(
@@ -338,7 +338,7 @@ impl FuturesAccount {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .delete_signed(API::Futures(Futures::Order), Some(request))
+            .delete_signed(API::Futures(Futures::Order), Some(&request))
     }
 
     // Place a STOP_MARKET close - BUY
@@ -587,7 +587,7 @@ impl FuturesAccount {
         parameters.insert("symbol".into(), symbol.into());
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .delete_signed::<Empty>(API::Futures(Futures::AllOpenOrders), Some(request))
+            .delete_signed::<Empty>(API::Futures(Futures::AllOpenOrders), Some(&request))
             .map(|_| ())
     }
 
