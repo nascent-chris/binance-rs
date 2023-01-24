@@ -61,6 +61,6 @@ impl Savings {
         parameters.insert("type".into(), (transfer_type as u8).to_string());
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .post_signed(API::Savings(Sapi::SpotFuturesTransfer), request)
+            .post_signed(API::Savings(Sapi::SpotFuturesTransfer), &request)
     }
 }

@@ -446,7 +446,7 @@ impl FuturesAccount {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .get_signed(API::Futures(Futures::AllOrders), Some(request))
+            .get_signed(API::Futures(Futures::AllOrders), Some(&request))
     }
 
     pub fn get_user_trades<S, F, N>(
@@ -474,7 +474,7 @@ impl FuturesAccount {
 
         let request = build_signed_request(parameters, self.recv_window)?;
         self.client
-            .get_signed(API::Futures(Futures::UserTrades), Some(request))
+            .get_signed(API::Futures(Futures::UserTrades), Some(&request))
     }
     fn build_order(&self, order: OrderRequest) -> BTreeMap<String, String> {
         let mut parameters = BTreeMap::new();
@@ -625,6 +625,6 @@ impl FuturesAccount {
         let request = build_signed_request(parameters, self.recv_window)?;
         println!("{}", request);
         self.client
-            .get_signed(API::Futures(Futures::Income), Some(request))
+            .get_signed(API::Futures(Futures::Income), Some(&request))
     }
 }
