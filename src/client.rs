@@ -127,19 +127,30 @@ impl Client {
     fn sign_request(&self, endpoint: API, request: Option<&str>) -> String {
         match request {
             Some(request) => {
+                // TODO: should this function retrn Result instead?
                 let mut signed_key =
                     Hmac::<Sha256>::new_from_slice(self.secret_key.as_bytes()).unwrap();
                 signed_key.update(request.as_bytes());
                 let signature = hex_encode(signed_key.finalize().into_bytes());
-                let request_body: String = format!("{}&signature={}", request, signature);
-                format!("{}{}?{}", self.host, endpoint.path_str(), request_body)
+                format!(
+                    "{}{}?{}&signature={}",
+                    self.host,
+                    endpoint.path_str(),
+                    request,
+                    signature
+                )
             }
             None => {
+                // TODO: should this function retrn Result instead?
                 let signed_key =
                     Hmac::<Sha256>::new_from_slice(self.secret_key.as_bytes()).unwrap();
                 let signature = hex_encode(signed_key.finalize().into_bytes());
-                let request_body: String = format!("&signature={}", signature);
-                format!("{}{}?{}", self.host, endpoint.path_str(), request_body)
+                format!(
+                    "{}{}?&signature={}",
+                    self.host,
+                    endpoint.path_str(),
+                    signature
+                )
             }
         }
     }
